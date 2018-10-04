@@ -5,7 +5,7 @@ from json import JSONDecoder, JSONEncoder
 import dateparser
 
 VERSION = "0.5"
-NAME = "Basic Date util"
+NAME = "basicdate"
 AUTHOR = "Giovanni Bronzini"
 AUTHOR_EMAIL = "g.bronzini@gmail.com"
 DESCRIPTION = "A very basic set of Python classes for simple date manipulation"
