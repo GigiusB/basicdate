@@ -10,6 +10,7 @@ AUTHOR = "Giovanni Bronzini"
 AUTHOR_EMAIL = "g.bronzini@gmail.com"
 DESCRIPTION = "A very basic set of Python classes for simple date manipulation"
 LICENSE = "BSD 3-Clause"
+URL = 'https://github.com/GigiusB/basicdate'
 
 class BasicDate:
     """
