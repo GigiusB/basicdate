@@ -24,6 +24,7 @@ setup(
     package_dir={'': 'src'},
     py_modules=['basicdate', ],
     zip_safe=False,
+    install_requires=['dateparser'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
