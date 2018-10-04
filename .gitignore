@@ -1,0 +1,12 @@
+.idea
+.tox
+*.egg-info
+
+/dist/
+/playground/
+/~*
+.env
+.venv
+.vscode
+.coverage
+.pytest_cache
