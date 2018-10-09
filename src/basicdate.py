@@ -4,7 +4,7 @@ from json import JSONDecoder, JSONEncoder
 
 import dateparser
 
-VERSION = "0.6"
+VERSION = "0.7"
 NAME = "basicdate"
 AUTHOR = "Giovanni Bronzini"
 AUTHOR_EMAIL = "g.bronzini@gmail.com"
@@ -29,13 +29,13 @@ class BasicDate:
         try:
             if isinstance(day, BasicDate):
                 _date = day._date
-            elif isinstance(day, datetime.date):
-                _date = day
             elif isinstance(day, datetime.datetime):
                 _date = day.date()
+            elif isinstance(day, datetime.date):
+                _date = day
             elif day:
                 _date = dateparser.parse(day, date_formats=date_formats,
-                                              settings={'DATE_ORDER': 'DMY'})
+                                              settings={'DATE_ORDER': 'DMY'}).date()
         except:
             if fail:
                 raise
