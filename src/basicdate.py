@@ -4,7 +4,7 @@ from json import JSONDecoder, JSONEncoder
 
 import dateparser
 
-VERSION = "0.5"
+VERSION = "0.6"
 NAME = "basicdate"
 AUTHOR = "Giovanni Bronzini"
 AUTHOR_EMAIL = "g.bronzini@gmail.com"
@@ -21,22 +21,33 @@ class BasicDate:
     >>> BasicDate().isocalendar() == datetime.date.today().isocalendar()
     True
     """
-    def __init__(self, day=None, date_formats=('%d/%m/%Y', '%Y-%m-%d', '%Y%m%d'), fail=True):
+    __cache = {}
+    def __new__(cls, day=None, date_formats=('%d/%m/%Y', '%Y-%m-%d', '%Y%m%d'), fail=True):
+        _date = None
+        if day is None:
+            _date = datetime.date.today()
         try:
             if isinstance(day, BasicDate):
-                self._date = day._date
+                _date = day._date
             elif isinstance(day, datetime.date):
-                self._date = day
+                _date = day
             elif isinstance(day, datetime.datetime):
-                self._date = day.date()
+                _date = day.date()
             elif day:
-                self._date = dateparser.parse(day, date_formats=date_formats,
+                _date = dateparser.parse(day, date_formats=date_formats,
                                               settings={'DATE_ORDER': 'DMY'})
-            else:
-                self._date = datetime.date.today()
         except:
             if fail:
                 raise
+            _date = datetime.date.today()
+
+        if _date in BasicDate.__cache:
+            return BasicDate.__cache[_date]
+        else:
+            o = object.__new__(cls)
+            o._date = _date
+            BasicDate.__cache[_date] = o
+            return o
 
     def __str__(self, format='%d/%m/%Y'):
         return self._date.strftime(format)
