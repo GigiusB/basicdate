@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from basicdate import BasicDate, BasicDateEncoder, BasicDateDecoder
@@ -9,13 +10,18 @@ class TestBasicDate:
         assert json.dumps(BasicDate('17/01/2018'), cls=BasicDateEncoder) == d
 
     def test_identity(self):
-        a, b, c = BasicDate('17/01/2018'), BasicDate('17/01/2018'), BasicDate('18/01/2018')
+        a, b, c = BasicDate('17/01/2018'), BasicDate(datetime.datetime(2018, 1, 17, 14, 11)), BasicDate('18/01/2018')
         assert a == b
         assert a != c
         assert type(a) == type(b) == type(c)
         assert a is b
         assert a is not c
         assert a == c - 1
+        assert BasicDate(a) is a
+        assert BasicDate(a) is b
+        assert BasicDate(a) == a
+        assert BasicDate(a) == b
+
 
     def test_as_key(self):
         a, b, c = BasicDate('17/01/2018'), BasicDate('17/01/2018'), BasicDate('11/01/2018')
@@ -30,4 +36,5 @@ class TestBasicDate:
         assert BasicDate('18/01/2018') not in d
         assert a == b == {'one': 1}
         assert a != c
+
 
