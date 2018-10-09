@@ -16,4 +16,5 @@ class TestBasicDate:
         assert a is b
         assert a is not c
         assert a == c - 1
+        assert a is c - 1
 
